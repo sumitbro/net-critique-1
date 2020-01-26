@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>MovieHunter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+<link rel="stylesheet" href="/css/home.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/collection.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/index.css" type="text/css" media="all" />
+
+
+
+
+
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-func.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="first.js"></script>
+<!--[if IE 6]><link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" /><![endif]-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+
+  <header>
+
+    <div class="shape">
+        <div class="searchbox">
+	
+            <form class="example" action="/app/api" method="post">
+                <input type="text" placeholder="Search.." name="MovieName">
+                <button type="submit"><i class="fa fa-search"></i></button>
+              </form>
+    </div>
+        
+
+        <nav>
+            <div class="dropdown">
+                <button class="dropbtn">MOVIES
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="/movies">ALL MOVIES</a>
+                  <a href="/movies/new">NEW IN THE THEATERES</a>
+                  <a href="/movies/top">TOP RATED</a>
+                  <a href="/movies/best">BEST MOVIES OF ALL TIME</a>
+                </div>
+              </div>
+              <div class="dropdown">
+                <button class="dropbtn">TV SHOWS
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  
+                  <a href="/tvshow">ALL TV SHOWS</a>
+                  <a href="/tvshow/tv-new">NEW TV SHOWS</a>
+                  <a href="/tvshow/tv-top">TOP RATED</a>
+                  <a href="/tvshow/tv-popular">POPULAR TV SHOWS</a>
+                  
+                </div>
+              </div>
+              <div class="dropdown">
+                <button class="dropbtn">BOOKS
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="#">ALL BOOKS</a>
+                  <a href="#">BEST SELLER</a>
+                  <a href="#">Link 3</a>
+                </div>
+              </div>
+              <div class="dropdown">
+                <button class="dropbtn">GAMES
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="#">ALL GAMES</a>
+                  <a href="#">NEW GAME RELEASE</a>
+                  <a href="#">TOP GAMES</a>
+                </div>
+              </div>
+            
+        </nav>
+    </div>
+</header>
+{{{body}}}
+</body>
+</html>

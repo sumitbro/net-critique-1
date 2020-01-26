@@ -1,0 +1,31 @@
+{{!-- {{Data}} --}}
+<h1>Title: {{Data.Title}}</h1>
+<p>Year: {{Data.Year}}</p>
+<p>Rated: {{Data.Rated}}</p>
+<p>Released: {{Data.Released}}</p>
+<p>Runtime: {{Data.Runtime}}</p>
+<p>Genre: {{Data.Genre}}</p>
+<p>Director: {{Data.Director}}</p>
+<p>Writer: {{Data.Writer}}</p>
+<p>Actors: {{Data.Actors}}</p>
+<p>Plot: {{Data.Plot}}</p>
+<p>Language: {{Data.Language}}</p>
+<p>Country: {{Data.Country}}</p>
+<p>Awards: {{Data.Awards}}</p>
+<p>Poster: <img src={{Data.Poster}} alt="Poster"/></p>
+<h6>Ratings</h6>
+{{#each data.ratings}}
+    {{this.Source}}: {{this.Value}}<br/>
+{{/each}}
+<p>Metascore: {{Data.Metascore}}</p>
+<p>IMDB Rating: {{Data.imdbRating}}</p>
+<p>IMDB Votes: {{Data.imdbVotes}}</p>
+<p>IMDB ID: {{Data.imdbID}}</p>
+<p>Type: {{Data.Type}}</p>
+<p>DVD: {{Data.DVD}}</p>
+<p>Box Office: {{Data.BoxOffice}}</p>
+<p>Production: {{Data.Production}}</p>
+<p>Website: {{Data.Website}}</p>
+<p>Response: {{Data.Response}}</p>
+
+
