@@ -1,3 +1,13 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/collection.css" type="text/css" media="all" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-func.js"></script>
+
+
+
+
+
+
 <H1><B><U> MOVIES COLLECTION</U><B></B></H1>
 <BR><BR><BR>
 <div id="shell">
@@ -20,16 +30,16 @@
           
           
         </div>
-        
+  {{#each data}}      
         <div class="movie">
-          <div class="desc"><b>SHAWSHANK</b></div>
+          <div class="desc"><b>{{this.Title}}</b></div>
           <div class="l-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="hovereffect">
-                <img class="img-responsive" src="css/images/top/1.jpg" alt="">
+                <img class="img-responsive" src={{this.Poster}} alt="">
     
                 <div class="overlay">
-                   <h2>SHAWSHANK</h2>
-                   <a class="info" href="#">READ MORE</a>
+                   <h2>{{this.Title}}</h2>
+                   <a class="info" href="http://localhost:5000/app/movie/{{this._id}}">READ MORE</a>
                 </div>
             </div>
         </div>
@@ -40,7 +50,18 @@
           </div>
            </div>
       </div>
-      <div class="movie">
+
+{{/each}}       
+            
+              
+            <div class="cl">&nbsp;</div>
+          </div>
+      </div>
+      </div>
+      </div>
+
+
+      {{!-- <div class="movie">
           <div class="desc"><b>THE GODFATHER</b></div>
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="hovereffect">
@@ -665,12 +686,5 @@
                </div>
   
           </div>
-             <br><br>
-             
-            
-              
-            <div class="cl">&nbsp;</div>
-          </div>
-      </div>
-      </div>
-      </div>
+             <br><br> --}}
+      

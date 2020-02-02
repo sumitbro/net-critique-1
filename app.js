@@ -1,10 +1,15 @@
 const express=require('express');
 const app= express();
 const path=require('path');
-const exphbs = require('express-handlebars');
+ const exphbs = require('express-handlebars');
 const request= require('request');
 const bodyParser=require('body-parser');
 const movies = require("./api/movie_route");
+const io = require("socket.io")();
+const Posts = require('./schema/posts');
+const Comments = require('./schema/comments');
+// const ejs= require ('ejs');
+
 
 
 
@@ -12,7 +17,46 @@ const movies = require("./api/movie_route");
 
 const port = process.env.port || 5000;
 
+//app.set('view engine', 'ejs');
 
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+
+// app.get('/feedback',function(req,res){
+//     Posts.find({}, function(err, posts) {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           res.render('feedback', { posts: posts });
+//         }
+//     }); 
+// });
+
+
+// app.get('/posts/detail/:id',function(req,res){
+//     Posts.findById(req.params.id, function (err, postDetail) {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//             Comments.find({'postId':req.params.id}, function (err, comments) {
+//                 res.render('post-detail', { postDetail: postDetail, comments: comments, postId: req.params.id });
+//             });
+//         }
+//     }); 
+// });
+
+
+// io.on('connection',function(socket){
+//     socket.on('comment',function(data){
+//         var commentData = new Comments(data);
+//         commentData.save();
+//         socket.broadcast.emit('comment',data);  
+//     });
+ 
+// });
+ 
 
 app.use(bodyParser.json());
 
@@ -23,8 +67,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use("/app", movies)
 
 
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
 
 
 //The easiest way to control template/view caching is through Express' view cache setting:
@@ -37,30 +79,60 @@ app.get('/', function (req, res) {
         showTitle: true,
         });
 });
-
-app.get('/', function (req, res) {
-    res.render('home', {
-        showTitle: true,
-        });
-});
-
 app.get('/movies', function (req, res) {
-    res.render('movies', {
-        showTitle: true,
+    request('http://localhost:5000/app/getNewMovies', {json:true}, function (error, newMov) {   
+        request('http://localhost:5000/app/getTopMovies', {json:true}, function (error, topMov) {
+            console.log(newMov)
+            res.render('movies', {
+                data: newMov,
+                Top: topMov
+            });
         });
+    });
 });
 
-app.get('/movies/new', function (req, res) {
-    res.render('new', {
-        showTitle: true,
-        });
+
+
+//route for new movies
+app.get('/new', function (req, res) {
+    request('http://localhost:5000/app/getNewMovies', {json:true}, function (error, response, body) {
+    
+        
+
+res.render('new', {
+    showTitle: true,
+    data: body
+    });
+});
+    
 });
 
-app.get('/movies/top', function (req, res) {
-    res.render('top', {
-        showTitle: true,
-        });
+
+//route for top movies
+app.get('/top', function (req, res) {
+    request('http://localhost:5000/app/getTopMovies', {json:true}, function (error, response, body) {
+
+res.render('top', {
+    showTitle: true,
+    data: body
+    });
 });
+    
+});
+  
+
+
+// app.get('/movies/new', function (req, res) {
+//     res.render('new', {
+//         showTitle: true,
+//         });
+// });
+
+// app.get('/movies/top', function (req, res) {
+//     res.render('top', {
+//         showTitle: true,
+//         });
+
 
 app.get('/movies/best', function (req, res) {
     res.render('best', {
@@ -144,5 +216,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.listen(port, ()=> console.log("server listining on port 5000"));
+app.listen(port, ()=> console.log("server listining on " + port ));
+
+
+
+
+
 

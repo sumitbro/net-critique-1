@@ -2,13 +2,16 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const request = require('request');
+
+
+
 //const MoviesCtrl = require("./movies.controller")
-mongoose.connect('mongodb+srv://m220student:m220password@mflix-k1wet.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://m220student:m220password@mflix-k1wet.mongodb.net/movies?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 
 
 
 const MovieSchema = require("../models/model");
- const movieModel = mongoose.model('movie', MovieSchema);
+const movieModel = mongoose.model('movie', MovieSchema);
 
 let addMovie = (req, res) =>{
     let movie = new movieModel(req.body);
@@ -31,15 +34,86 @@ let getAllMovies = (req, res) =>{
     })
 }
 
-
-
-let getMovieByID = (req, res) =>{
-    movieModel.findById((req.params.movieId), (err, movie) =>{
+//sort for new movie
+let getNewMovies = (req, res) =>{
+    movieModel.find({}, {}, {sort: {Year: -1}}, (err, movies) =>{ //{_id: 0} excludes ID ad reverse to only include i.e. {_id: 1} Implicitly
         if(err){
             res.send(err);
         }else{
-            res.json(movie);
+            // let temp = [];
+            // movies.forEach(function(record){
+            //     // console.log(record._id)
+            //     temp.push(record._id)
+            // })
+            // console.log(temp)
+            res.json(movies);
         }
+    }).limit(20)     
+}
+//sort for top rated movie
+let getTopMovies = (req, res) =>{
+    movieModel.find({}, {}, {sort: {imdbRating: -1}}, (err, movies) =>{ //{_id: 0} excludes ID ad reverse to only include i.e. {_id: 1} Implicitly
+        if(err){
+            res.send(err);
+        }else{
+            res.json(movies);
+        }
+    }).limit(20)     
+}
+
+
+
+
+
+
+
+let getMovieByID = (req, res) =>{
+    movieModel.findById((req.params.movieId), (err, data) =>{
+        if(err){
+            res.send(err);
+        }else{
+            // console.log(movie)
+            res.render('detail', {
+                // Data: movie,
+            // res.status(200).json(movie.Title)
+
+                Title: data.Title,
+                Year: data.Year,
+                Rated: data.Rated,
+                Released: data.Released,
+                Runtime: data.Runtime,
+                Genre: data.Genre,
+                Director: data.Director,
+                Writer: data.Writer,
+                Actors: data.Actors,
+                Plot: data.Plot,
+                Language: data.Language,
+                Country: data.Country,
+                Awards: data.Awards,
+                Poster: data.Poster,
+                Ratings1: data.Ratings[0].Source,
+                Ratings2: data.Ratings[0].Value,
+                Ratings3: data.Ratings[1].Source,
+                Ratings4: data.Ratings[1].Value,
+                Ratings5: data.Ratings[2].Source,
+                Ratings6: data.Ratings[2].Value,
+                Metascore: data.Metascore,
+                imdbRating: data.imdbRating,
+                imdbVotes: data.imdbVotes,
+                imdbID: data.imdbID,
+                Type: data.Type,
+                DVD: data.DVD,
+                BoxOffice: data.BoxOffice,
+                Production: data.Production,
+                Website: data.Website,
+                Response: data.Response,
+              
+
+            });
+        
+                
+        }
+
     })
 }
 
@@ -109,6 +183,9 @@ let apiRetrival = (req, res) => {
 // associate put, delete, and get(id)
 router.route("/newMovie").post(addMovie)
 router.route("/getMovies").get(getAllMovies)
+router.route("/getNewMovies").get(getNewMovies)
+router.route("/getTopMovies").get(getTopMovies)
+
 
 router
   .route("/movie/:movieId")

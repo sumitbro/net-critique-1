@@ -1,3 +1,12 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/collection.css" type="text/css" media="all" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-func.js"></script>
+
+
+
+
+
 <H1><B><U> MOVIES COLLECTION</U><B></B></H1>
 <BR><BR><BR>
 <div id="shell">
@@ -20,26 +29,42 @@
           
           
         </div>
+{{#each data}}
         <div class="movie">
-          <div class="desc"><b>RACER 3D</b></div>  
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-              <div class="hovereffect">
-                  <img class="img-responsive" src="css/images/new/21.jpg" alt="">
-      
-                  <div class="overlay">
-                     <h2>Racer 3D</h2>
-                     <a class="info" href="#">READ MORE</a>
-                  </div>
-              </div>
-          </div>
-          <div class="rating">
-            <p>RATING</p>
-            <div class="stars">
-              <div class="stars-in"> </div>
+    
+          <div class="desc"><b>{{this.Title}}</b></div>
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src={{this.Poster}} alt="">
+    
+                <div class="overlay">
+                   <h2>{{this.Title}}</h2>
+                   <a class="info" href="http://localhost:5000/app/movie/{{this._id}}">READ MORE</a>
+                </div>
             </div>
-             </div>
         </div>
-        <div class="movie">
+        <div class="rating">
+          <p>RATING</p>
+          <div class="stars">
+            <div class="stars-in"> </div>
+          </div>
+           </div>
+           
+      </div>
+
+
+
+        {{/each}}
+      <div class="cl">&nbsp;</div>
+      </div>
+      </div>
+</div>
+</div>
+
+
+
+       
+        {{!-- <div class="movie">
             <div class="desc"><b>JUST MERCY</b></div>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div class="hovereffect">
@@ -336,4 +361,6 @@
           </div>
       </div>
       </div>
-      </div>
+      </div> --}}
+      
+    
