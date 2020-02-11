@@ -23,10 +23,6 @@ let addMovie = (req, res) =>{
         if(title){
             return res.json(title);
         }
-    
-
-
-
     let movie = new movieModel(req.body);
     movie.save((err, movieModel) =>{
         if(err){
@@ -34,6 +30,7 @@ let addMovie = (req, res) =>{
         }
         res.json(movie);
     })
+}
 }
 
 
@@ -198,10 +195,7 @@ let apiRetrival = (req, res) => {
         res.send(data);
         return 0;
     }
-
-
-    
-    if(data.Response!='False'){
+       if(data.Response!='False'){
         const movie = new movieModel(data);
         const { Title } = data    
         let mov = await movieModel.findOne({ Title })
@@ -219,10 +213,10 @@ let apiRetrival = (req, res) => {
     else{
         res.send('Data not found!');
     }
+        
+        }, req.body.MovieName);
 }
-, req.body.MovieName);
-    }
-}
+
 
 
 

@@ -11,196 +11,106 @@
 
 
 
-
-
 <div class="slider">
     <figure>
+
+      
   
          <div class="slide">
-             <img src="5.jpg" alt="">
+          <div class="numbertext">1 / 5</div>
+             <img src="css/cover/e10.jpg" alt="">
+
+             <div class="text">
+
+              <h1 class= "  a1 animated bounceInRight">WELCOME TO NET CRITIQUE</h1>
+              <p>HERE'S HOW WE HELP YOU FIND STUFF YOU'LL LOVE…
+
+              </p>
+              </div>
             </div>
             <div class="slide">
-                <img src="6.jpg" alt="">
+              <div class="numbertext">2 / 5</div>
+                <img src="css/cover/e2.jpg" alt="">
+                <div class="text">
+                  <h5 class= " a2 animated fadeInRight" style="animation-delay:1s ;">First slide label</h5>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.
+      
+                  </p>
+                </div>
                </div>
                <div class="slide">
-                <img src="8.jpg" alt="">
+                <div class="numbertext">3 / 5</div>
+                <img src="css/cover/f1.jpg" alt="">
+                <div class="text">
+                  <h5 class= "animated fadeInRight" style="animation-delay:1s ;">First slide label</h5>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </div>
                </div>
   
                <div class="slide">
-                <img src="6.jpg">
+                <div class="numbertext">4 / 5</div>
+                <img src="css/cover/e7.jpg">
+                <div class="text">
+                  <h5 class= "animated bounceInRight" style="animation-delay:1s ;">First slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </div>
                </div>
                <div class="slide">
-                <img src="5.jpg">
+                <div class="numbertext">5 / 5</div>
+                <img src="css/cover/e10.jpg">
+                <div class="text">
+                  <h5 class= "animated bounceInRight" style="animation-delay:1s ;">First slide label</h5>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                
+                </div>
                </div>
+
+
+
+             
+
+
   
   
     </figure>
+
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+<a class="next" onclick="plusSlides(1)">❯</a>
+
   </div>
 
-
-
-
-
-
-
-
-
-
-<!-- START PAGE SOURCE -->
-<H1><B><U> MOVIES COLLECTION</U><B></B></H1>
-<BR><BR><BR>
-<div id="shell">
-    <div id="header">
-      
-
-    <div id="sub-navigation">
-      <ul>
-        
-        <li><a href="#">NEW IN THEATERES</a></li>
-        <li><a href="#">TOP RATED</a></li>
-        <li><a href="#">BEST MOVIES OF ALL TIME</a></li>
-      </ul>
-     
-    </div>
-  </div>
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
   
 
-  <div id="main">
-    <div id="content">
-      <div class="box">
-        <div class="head">
-          <h2>NEW IN THEATERES</h2>
-          <p class="text-right"><a href="new.html">See all</a></p>
-        </div>
+<script>
+  var slideIndex = 0;
+  showSlides();
+  
+  function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("slide");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "active";  
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 4500); // Change image every 2 seconds
+  }
+  </script>
 
-
-
-        <div class="movie">
-          <div class="desc"><b>Racer 3D</b></div>
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="hovereffect">
-                <img class="img-responsive" src="css/images/new/21.jpg" alt="">
-    
-                <div class="overlay">
-                   <h2>RACER 3D</h2>
-                   <a class="info" href="#">READ MORE</a>
-                </div>
-            </div>
-        </div>
-        <div class="rating">
-          <p>RATING</p>
-          <div class="stars">
-            <div class="stars-in"> </div>
-          </div>
-           </div>
-      </div>
-      <div class="movie">
-          <div class="desc"><b>JUST MERCY</b></div>
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="hovereffect">
-                <img class="img-responsive" src="css/images/new/22.jpg" alt="">
-    
-                <div class="overlay">
-                   <h2>JUST MERCY</h2>
-                   <a class="info" href="#">READ MORE</a>
-                </div>
-            </div>
-        </div>
-        <div class="rating">
-          <p>RATING</p>
-          <div class="stars">
-            <div class="stars-in"> </div>
-          </div>
-           </div>
-      </div>
-      <div class="movie">
-          <div class="desc"><b>LIKE A BOSS</b></div>
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="hovereffect">
-                <img class="img-responsive" src="css/images/new/23.jpg" alt="">
-    
-                <div class="overlay">
-                   <h2>LIKE A BOSS</h2>
-                   <a class="info" href="#">READ MORE</a>
-                </div>
-            </div>
-        </div>
-        <div class="rating">
-          <p>RATING</p>
-          <div class="stars">
-            <div class="stars-in"> </div>
-          </div>
-           </div>
-      </div>
-      <div class="movie">
-          <div class="desc"><b>UNDER WATER</b></div>
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="hovereffect">
-                <img class="img-responsive" src="css/images/new/24.jpg" alt="">
-    
-                <div class="overlay">
-                   <h2>UNDER WATER</h2>
-                   <a class="info" href="#">READ MORE</a>
-                </div>
-            </div>
-        </div>
-        <div class="rating">
-          <p>RATING</p>
-          <div class="stars">
-            <div class="stars-in"> </div>
-          </div>
-          </div>
-      </div>
-      <div class="movie">
-          <div class="desc"><b>THE INFORMER</b></div>
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="hovereffect">
-                <img class="img-responsive" src="css/images/new/25.jpg" alt="">
-    
-                <div class="overlay">
-                   <h2>THE INFORMER</h2>
-                   <a class="info" href="#">READ MORE</a>
-                </div>
-            </div>
-        </div>
-        <div class="rating">
-          <p>RATING</p>
-          <div class="stars">
-            <div class="stars-in"> </div>
-          </div>
-           </div>
-
-      </div>
-
-
-
-
-
-
-
-
-        <div class="cl">&nbsp;</div>
-      </div>
- 
-
-</div>
-
-
-
-
-</div>
-
-
-
-
-    </div>
-    
-
-
-
-
-
-    
 
 
 
