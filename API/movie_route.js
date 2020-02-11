@@ -191,13 +191,14 @@ function CallApi(Data, Title){
 
 let apiRetrival = (req, res) => {
     //console.log(req.body.MovieName);
-    CallApi(function (data) {
+    
         CallApi(async function (data) {
     //console.log(data);
     if(data.errno=="ENOTFOUND"){
         res.send(data);
         return 0;
     }
+
 
     
     if(data.Response!='False'){
@@ -218,9 +219,11 @@ let apiRetrival = (req, res) => {
     else{
         res.send('Data not found!');
     }
-}, req.body.MovieName);
+}
+, req.body.MovieName);
     }
 }
+
 
 
 // associate put, delete, and get(id)
