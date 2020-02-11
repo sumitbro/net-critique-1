@@ -6,7 +6,8 @@ const request = require('request');
 
 
 //const MoviesCtrl = require("./movies.controller")
-mongoose.connect('mongodb+srv://m220student:m220password@mflix-k1wet.mongodb.net/movies?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+//mongoose.connect('mongodb+srv://m220student:m220password@mflix-k1wet.mongodb.net/movies?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/movies', {useNewUrlParser: true, useUnifiedTopology: true});
 
 
 
@@ -14,6 +15,17 @@ const MovieSchema = require("../models/model");
 const movieModel = mongoose.model('movie', MovieSchema);
 
 let addMovie = (req, res) =>{
+    let addMovie = async (req, res) =>{
+        const { Title } = req.body
+        
+        let title = await movieModel.findOne({ Title })
+        if(title){
+            return res.json(title);
+        }
+    
+
+
+
     let movie = new movieModel(req.body);
     movie.save((err, movieModel) =>{
         if(err){
@@ -34,18 +46,37 @@ let getAllMovies = (req, res) =>{
     })
 }
 
+//sort for all movies
+let getNewMovies1 = (req, res) =>{
+    movieModel.find({}, {}, {sort: {Year: -1}}, (err, movies) =>{ //{_id: 0} excludes ID ad reverse to only include i.e. {_id: 1} Implicitly
+        if(err){
+            res.send(err);
+        }else{
+           
+            res.json(movies);
+        }
+    }).limit(4)     
+}
+//sort for all movies
+let getTopMovies1 = (req, res) =>{
+    movieModel.find({}, {}, {sort: {imdbRating: -1}}, (err, movies) =>{ //{_id: 0} excludes ID ad reverse to only include i.e. {_id: 1} Implicitly
+        if(err){
+            res.send(err);
+        }else{
+            res.json(movies);
+        }
+    }).limit(4)     
+}
+
+
+
 //sort for new movie
 let getNewMovies = (req, res) =>{
     movieModel.find({}, {}, {sort: {Year: -1}}, (err, movies) =>{ //{_id: 0} excludes ID ad reverse to only include i.e. {_id: 1} Implicitly
         if(err){
             res.send(err);
         }else{
-            // let temp = [];
-            // movies.forEach(function(record){
-            //     // console.log(record._id)
-            //     temp.push(record._id)
-            // })
-            // console.log(temp)
+           
             res.json(movies);
         }
     }).limit(20)     
@@ -160,6 +191,7 @@ function CallApi(Data, Title){
 let apiRetrival = (req, res) => {
     //console.log(req.body.MovieName);
     CallApi(function (data) {
+        CallApi(async function (data) {
     //console.log(data);
     if(data.errno=="ENOTFOUND"){
         res.send(data);
@@ -167,7 +199,14 @@ let apiRetrival = (req, res) => {
     }
     if(data.Response!='False'){
         const movie = new movieModel(data);
-        movie.save().then(() => console.log('Saved'));
+        const { Title } = data    
+        let mov = await movieModel.findOne({ Title })
+        if(mov){
+            console.log("Not Saved")
+        } else{
+            movie.save().then(() => console.log('Saved'));
+        }
+        // movie.save().then(() => console.log('Saved'));
         res.render('data', {
         Data: data,
       
@@ -177,6 +216,7 @@ let apiRetrival = (req, res) => {
         res.send('Data not found!');
     }
 }, req.body.MovieName);
+    }
 }
 
 
@@ -185,6 +225,8 @@ router.route("/newMovie").post(addMovie)
 router.route("/getMovies").get(getAllMovies)
 router.route("/getNewMovies").get(getNewMovies)
 router.route("/getTopMovies").get(getTopMovies)
+ router.route("/getNewMovies1").get(getNewMovies1)
+router.route("/getTopMovies1").get(getTopMovies1)
 
 
 router
