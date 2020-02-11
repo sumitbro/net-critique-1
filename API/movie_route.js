@@ -6,6 +6,7 @@ const request = require('request');
 
 
 //const MoviesCtrl = require("./movies.controller")
+
 //mongoose.connect('mongodb+srv://m220student:m220password@mflix-k1wet.mongodb.net/movies?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connect('mongodb://localhost:27017/movies', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -197,6 +198,8 @@ let apiRetrival = (req, res) => {
         res.send(data);
         return 0;
     }
+
+    
     if(data.Response!='False'){
         const movie = new movieModel(data);
         const { Title } = data    
