@@ -29,6 +29,7 @@ let addMovie = (req, res) =>{
             res.send(err);
         }
         res.json(movie);
+       // res.send("data saved")
     })
 }
 }
@@ -173,9 +174,7 @@ let deleteMovie = (req, res) =>{
 
 function CallApi(Data, Title){
     request('http://www.omdbapi.com/?t='+Title+'&apikey=69aa4d26', {json:true},function (error, response, body) {
-    //console.log('error:', error); // Print the error if one occurred
-    //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    //console.log('body:', body); // Print the HTML for the Google homepage.
+    
         if(error){
             Data(error);            
             return 0;

@@ -292,7 +292,7 @@ h4 {
 	width:200px;
 	height:300px;
 	position:relative;
-	border: 2px solid red;
+	border: 1px solid gray;
 }
 .hovereffect img {
 	width:200px;

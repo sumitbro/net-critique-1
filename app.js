@@ -1,13 +1,13 @@
-const express=require('express');
-const app= express();
-const path=require('path');
- const exphbs = require('express-handlebars');
-const request= require('request');
-const bodyParser=require('body-parser');
+const express = require('express');
+const app = express();
+const path = require('path');
+const exphbs = require('express-handlebars');
+const request = require('request');
+const bodyParser = require('body-parser');
 const movies = require("./api/movie_route");
 const io = require("socket.io")();
-const Posts = require('./schema/posts');
-const Comments = require('./schema/comments');
+// const Posts = require('./schema/posts');
+// const Comments = require('./schema/comments');
 
 
 
@@ -28,7 +28,7 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
 
 //Use body parser middleware
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Register api routes
 app.use("/app", movies)
@@ -44,14 +44,14 @@ app.enable('view cache');
 app.get('/', function (req, res) {
     res.render('home', {
         showTitle: true,
-        });
+    });
 });
 
 
 //route for all movies
 app.get('/movies', function (req, res) {
-    request(`http://${req.headers.host}/app/getNewMovies1`, {json:true}, function (error, newMov) {   
-        request(`http://${req.headers.host}/app/getTopMovies1`, {json:true}, function (error, topMov) {
+    request(`http://${req.headers.host}/app/getNewMovies1`, { json: true }, function (error, newMov) {
+        request(`http://${req.headers.host}/app/getTopMovies1`, { json: true }, function (error, topMov) {
             // console.log(newMov)
             res.render('movies', {
                 data: newMov.body,
@@ -65,61 +65,61 @@ app.get('/movies', function (req, res) {
 
 //route for new movies
 app.get('/new', function (req, res) {
-    request('http://localhost:5000/app/getNewMovies', {json:true}, function (error, response, body) {
-    
-        
+    request('http://localhost:5000/app/getNewMovies', { json: true }, function (error, response, body) {
 
-            res.render('new', {
-                showTitle: true,
-                data: body
-                });
-            });
-                
-            });
+
+
+        res.render('new', {
+            showTitle: true,
+            data: body
+        });
+    });
+
+});
 
 
 //route for top movies
 app.get('/top', function (req, res) {
-    request('http://localhost:5000/app/getTopMovies', {json:true}, function (error, response, body) {
+    request('http://localhost:5000/app/getTopMovies', { json: true }, function (error, response, body) {
 
-res.render('top', {
-    showTitle: true,
-    data: body
+        res.render('top', {
+            showTitle: true,
+            data: body
+        });
     });
 });
-});
-  
+
 
 
 
 app.get('/movies/best', function (req, res) {
     res.render('best', {
         showTitle: true,
-        });
+    });
 });
 
 app.get('/tvshow', function (req, res) {
     res.render('tvshow', {
         showTitle: true,
-        });
+    });
 });
 
 app.get('/tvshow/tv-new', function (req, res) {
     res.render('tv-new', {
         showTitle: true,
-        });
+    });
 });
 
 app.get('/tvshow/tv-popular', function (req, res) {
     res.render('tv-popular', {
         showTitle: true,
-        });
+    });
 });
 
 app.get('/tvshow/tv-top', function (req, res) {
     res.render('tv-top', {
         showTitle: true,
-        });
+    });
 });
 
 
@@ -174,7 +174,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.listen(port, ()=> console.log("server listining on " + port ));
+app.listen(port, () => console.log("server listining on " + port));
 
 
 
