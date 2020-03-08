@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema,
 ObjectId = Schema.ObjectId;
 var Comments = new Schema({
+    userName: String,
+    email:Email,
 comment :String,    
 postId :String
 });

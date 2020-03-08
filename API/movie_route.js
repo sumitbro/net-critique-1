@@ -14,10 +14,12 @@ mongoose.connect('mongodb://localhost:27017/movies', {useNewUrlParser: true, use
 
 const MovieSchema = require("../models/model");
 const movieModel = mongoose.model('movie', MovieSchema);
+const tv_showModel = mongoose.model('Tvshow', MovieSchema);
 
-let addMovie = (req, res) =>{
+
+// let addMovie = (req, res) =>{
     let addMovie = async (req, res) =>{
-        const { Title } = req.body
+        const { Title,Type } = req.body
         
         let title = await movieModel.findOne({ Title })
         if(title){
@@ -28,11 +30,11 @@ let addMovie = (req, res) =>{
         if(err){
             res.send(err);
         }
-        res.json(movie);
-       // res.send("data saved")
+    //res.json(movie);
+       res.send("data saved")
     })
 }
-}
+
 
 
 let getAllMovies = (req, res) =>{
@@ -103,40 +105,41 @@ let getMovieByID = (req, res) =>{
             res.send(err);
         }else{
             // console.log(movie)
-            res.render('detail', {
+            res.render('data', {
+                Data:data.toJSON()
                 // Data: movie,
             // res.status(200).json(movie.Title)
 
-                Title: data.Title,
-                Year: data.Year,
-                Rated: data.Rated,
-                Released: data.Released,
-                Runtime: data.Runtime,
-                Genre: data.Genre,
-                Director: data.Director,
-                Writer: data.Writer,
-                Actors: data.Actors,
-                Plot: data.Plot,
-                Language: data.Language,
-                Country: data.Country,
-                Awards: data.Awards,
-                Poster: data.Poster,
-                Ratings1: data.Ratings[0].Source,
-                Ratings2: data.Ratings[0].Value,
-                Ratings3: data.Ratings[1].Source,
-                Ratings4: data.Ratings[1].Value,
-                Ratings5: data.Ratings[2].Source,
-                Ratings6: data.Ratings[2].Value,
-                Metascore: data.Metascore,
-                imdbRating: data.imdbRating,
-                imdbVotes: data.imdbVotes,
-                imdbID: data.imdbID,
-                Type: data.Type,
-                DVD: data.DVD,
-                BoxOffice: data.BoxOffice,
-                Production: data.Production,
-                Website: data.Website,
-                Response: data.Response,
+                // Title: data.Title,
+                // Year: data.Year,
+                // Rated: data.Rated,
+                // Released: data.Released,
+                // Runtime: data.Runtime,
+                // Genre: data.Genre,
+                // Director: data.Director,
+                // Writer: data.Writer,
+                // Actors: data.Actors,
+                // Plot: data.Plot,
+                // Language: data.Language,
+                // Country: data.Country,
+                // Awards: data.Awards,
+                // Poster: data.Poster,
+                // Ratings1: data.Ratings[0].Source,
+                // Ratings2: data.Ratings[0].Value,
+                // Ratings3: data.Ratings[1].Source,
+                // Ratings4: data.Ratings[1].Value,
+                // Ratings5: data.Ratings[2].Source,
+                // Ratings6: data.Ratings[2].Value,
+                // Metascore: data.Metascore,
+                // imdbRating: data.imdbRating,
+                // imdbVotes: data.imdbVotes,
+                // imdbID: data.imdbID,
+                // Type: data.Type,
+                // DVD: data.DVD,
+                // BoxOffice: data.BoxOffice,
+                // Production: data.Production,
+                // Website: data.Website,
+                // Response: data.Response,
               
 
             });
@@ -184,37 +187,50 @@ function CallApi(Data, Title){
         }
 });
 };
-
-let apiRetrival = (req, res) => {
-    //console.log(req.body.MovieName);
+//for search button
+let apiRetrival = async (req, res) => {
+    // console.log(req.body.MovieName);
+    try{
+        const { MovieName } = req.body
     
-        CallApi(async function (data) {
-    //console.log(data);
-    if(data.errno=="ENOTFOUND"){
-        res.send(data);
-        return 0;
-    }
-       if(data.Response!='False'){
-        const movie = new movieModel(data);
-        const { Title } = data    
-        let mov = await movieModel.findOne({ Title })
-        if(mov){
-            console.log("Not Saved")
-        } else{
-            movie.save().then(() => console.log('Saved'));
-        }
-        // movie.save().then(() => console.log('Saved'));
-        res.render('data', {
-        Data: data,
-      
-    });
-    }
-    else{
-        res.send('Data not found!');
-    }
-        
+        let title = await movieModel.findOne({ Title: new RegExp('^'+MovieName+'$', "i") })
+        console.log(new RegExp('^'+MovieName+'$', "i"))
+        if(title){
+            return res.render('data', {
+                Data: title.toJSON(),              
+            });
+        }   
+
+        CallApi(function (data) {
+            //console.log(data);
+            if(data.errno=="ENOTFOUND"){
+                return res.send(data);
+            }
+            if(data.Response!='False'){
+                const movie = new movieModel(data);
+                movie.save().then(() => console.log('Saved'));
+                res.render('data', {
+                    Data: data,              
+                });
+            }
+            else{
+                res.send('Data not found!');
+            }
         }, req.body.MovieName);
+    } catch(err){
+        console.error(err.message)
+        res.status(500).send(`Error. ${err.message}`)
+    }
 }
+
+
+
+let post_comment =(req,res)=>{
+    
+}
+
+
+
 
 
 
@@ -226,6 +242,7 @@ router.route("/getNewMovies").get(getNewMovies)
 router.route("/getTopMovies").get(getTopMovies)
  router.route("/getNewMovies1").get(getNewMovies1)
 router.route("/getTopMovies1").get(getTopMovies1)
+router.route("/live_comment").post(post_comment)
 
 
 router
